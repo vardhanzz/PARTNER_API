@@ -1,0 +1,12 @@
+{
+  "name": "partner-api",
+  "version": "1.0.0",
+  "description": "Partner Hotel API for Pega Connect-REST",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
