@@ -56,6 +56,42 @@ const hotels = [
     "status": "CLOSED FOR BOOKING",
     "phone": "+33123456789",
     "address": "Paris"
+  },
+  {
+    "propertyId": "207",
+    "propertyName": "Taj Goa",
+    "country": "India",
+    "email": "tajgoa@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+919876543210",
+    "address": "Goa"
+  },
+  {
+    "propertyId": "208",
+    "propertyName": "ITC Grand Chola",
+    "country": "India",
+    "email": "itcchennai@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+914412345678",
+    "address": "Chennai"
+  },
+  {
+    "propertyId": "209",
+    "propertyName": "ITC Maurya",
+    "country": "India",
+    "email": "itcdelhi@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+911123456789",
+    "address": "New Delhi"
+  },
+  {
+    "propertyId": "210",
+    "propertyName": "ITC Maratha",
+    "country": "India",
+    "email": "itcmumbai@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+912212345678",
+    "address": "Mumbai"
   }
 ];
 
