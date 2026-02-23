@@ -134,25 +134,27 @@ function handleRequest(req, res) {
     return sendJSON(res, 200, { hotels: results });
   }
 
-  // GET /api/partner/hotels/:id - Get hotel by ID
-  const idMatch = pathname.match(/^\/api\/partner\/hotels\/(\d+)$/);
-  if (idMatch && req.method === 'GET') {
-    const id = idMatch[1];
+  // GET /api/partner/hotel?id=201 - Get hotel by ID
+  if (pathname === '/api/partner/hotel' && req.method === 'GET') {
+    const id = query.id;
+    if (!id) {
+      return sendJSON(res, 400, { error: "Please provide 'id' query parameter" });
+    }
     const hotel = hotels.find(h => h.propertyId === id);
     if (!hotel) {
       return sendJSON(res, 404, { error: "Hotel not found" });
     }
-    return sendJSON(res, 200, { hotel });
+    return sendJSON(res, 200, hotel);
   }
 
-  // 404 Not Found
+
   sendJSON(res, 404, { error: "Endpoint not found" });
 }
 
-// Export for Vercel serverless
+
 module.exports = handleRequest;
 
-// For local testing
+
 if (require.main === module) {
   const server = http.createServer(handleRequest);
   const PORT = 3000;
