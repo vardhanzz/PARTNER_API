@@ -147,6 +147,29 @@ function handleRequest(req, res) {
     return sendJSON(res, 200, hotel);
   }
 
+  // GET /api/partner/hotels/filter?name=taj&id=201 - Filter by name OR id (whichever provided)
+  if (pathname === '/api/partner/hotels/filter' && req.method === 'GET') {
+    const name = query.name;
+    const id = query.id;
+    
+    if (!name && !id) {
+      return sendJSON(res, 400, { error: "Please provide 'name' or 'id' query parameter" });
+    }
+    
+    let results = hotels;
+    
+    if (id) {
+      results = results.filter(h => h.propertyId === id);
+    }
+    
+    if (name) {
+      results = results.filter(h => 
+        h.propertyName.toLowerCase().includes(name.toLowerCase())
+      );
+    }
+    
+    return sendJSON(res, 200, { hotels: results });
+  }
 
   sendJSON(res, 404, { error: "Endpoint not found" });
 }
