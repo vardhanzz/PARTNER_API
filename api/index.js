@@ -171,6 +171,36 @@ function handleRequest(req, res) {
     return sendJSON(res, 200, { hotels: results });
   }
 
+  // GET /api/partner/hotels/query?q=taj OR ?q=201 - Unified search (auto-detect name or id)
+  if (pathname === '/api/partner/hotels/query' && req.method === 'GET') {
+    const q = query.q;
+    
+    if (!q) {
+      return sendJSON(res, 400, { error: "Please provide 'q' query parameter" });
+    }
+    
+    let results = [];
+    
+    // Check if input is numeric (likely an ID)
+    if (/^\d+$/.test(q)) {
+      // Search by ID first
+      results = hotels.filter(h => h.propertyId === q);
+      // If no ID match, also search by name containing the number
+      if (results.length === 0) {
+        results = hotels.filter(h => 
+          h.propertyName.toLowerCase().includes(q.toLowerCase())
+        );
+      }
+    } else {
+      // Search by name
+      results = hotels.filter(h => 
+        h.propertyName.toLowerCase().includes(q.toLowerCase())
+      );
+    }
+    
+    return sendJSON(res, 200, { hotels: results });
+  }
+
   sendJSON(res, 404, { error: "Endpoint not found" });
 }
 
