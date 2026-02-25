@@ -10,7 +10,8 @@ const hotels = [
     "email": "tajdelhi@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+919812345678",
-    "address": "New Delhi"
+    "address": "New Delhi",
+    "review": "Good"
   },
   {
     "propertyId": "202",
@@ -19,7 +20,8 @@ const hotels = [
     "email": "tajmumbai@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+919911223344",
-    "address": "Mumbai"
+    "address": "Mumbai",
+    "review": "Good"
   },
   {
     "propertyId": "203",
@@ -28,7 +30,8 @@ const hotels = [
     "email": "oberoi@hotel.com",
     "status": "CLOSED FOR BOOKING",
     "phone": "+918045678901",
-    "address": "Bangalore"
+    "address": "Bangalore",
+    "review": "Bad"
   },
   {
     "propertyId": "204",
@@ -37,7 +40,8 @@ const hotels = [
     "email": "roma@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+390612345678",
-    "address": "Rome"
+    "address": "Rome",
+    "review": "Good"
   },
   {
     "propertyId": "205",
@@ -46,7 +50,8 @@ const hotels = [
     "email": "amsterdam@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+31201234567",
-    "address": "Amsterdam"
+    "address": "Amsterdam",
+    "review": "Good"
   },
   {
     "propertyId": "206",
@@ -55,7 +60,8 @@ const hotels = [
     "email": "paris@hotel.com",
     "status": "CLOSED FOR BOOKING",
     "phone": "+33123456789",
-    "address": "Paris"
+    "address": "Paris",
+    "review": "Bad"
   },
   {
     "propertyId": "207",
@@ -64,7 +70,8 @@ const hotels = [
     "email": "tajgoa@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+919876543210",
-    "address": "Goa"
+    "address": "Goa",
+    "review": "Good"
   },
   {
     "propertyId": "208",
@@ -73,7 +80,8 @@ const hotels = [
     "email": "itcchennai@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+914412345678",
-    "address": "Chennai"
+    "address": "Chennai",
+    "review": "Good"
   },
   {
     "propertyId": "209",
@@ -82,7 +90,8 @@ const hotels = [
     "email": "itcdelhi@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+911123456789",
-    "address": "New Delhi"
+    "address": "New Delhi",
+    "review": "Bad"
   },
   {
     "propertyId": "210",
@@ -91,7 +100,8 @@ const hotels = [
     "email": "itcmumbai@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+912212345678",
-    "address": "Mumbai"
+    "address": "Mumbai",
+    "review": "Good"
   }
 ];
 
