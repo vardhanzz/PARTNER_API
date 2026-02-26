@@ -36,7 +36,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "English"
+    "language": "English",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "Euro/Mastercard,Visa",
+      "vccStatus": "Check-in +1"
+    }
   },
   {
     "propertyId": "202",
@@ -50,7 +56,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "English"
+    "language": "English",
+    "paymentDetails": {
+      "paymentModel": "Not on payments",
+      "cvc": "CVC Required",
+      "creditCardsAccepted": "Visa,Mastercard,Amex",
+      "vccStatus": "On date of booking"
+    }
   },
   {
     "propertyId": "203",
@@ -64,7 +76,13 @@ const hotels = [
     "propertyType": "Resort",
     "bookingModel": "Request to book",
     "system": "XML Hotel not activated",
-    "language": "English"
+    "language": "English",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "No credit-cards accepted, only cash",
+      "vccStatus": "Check-in +1"
+    }
   },
   {
     "propertyId": "204",
@@ -78,7 +96,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Request to book",
     "system": "XML Hotel activated",
-    "language": "Italian"
+    "language": "Italian",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "CartaSi,Maestro,Euro/Mastercard,Visa",
+      "vccStatus": "Check-in +1"
+    }
   },
   {
     "propertyId": "205",
@@ -92,7 +116,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "Dutch"
+    "language": "Dutch",
+    "paymentDetails": {
+      "paymentModel": "Not on payments",
+      "cvc": "CVC Required",
+      "creditCardsAccepted": "Euro/Mastercard,Visa,Amex",
+      "vccStatus": "On date of booking"
+    }
   },
   {
     "propertyId": "206",
@@ -106,7 +136,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Request to book",
     "system": "XML Hotel not activated",
-    "language": "French"
+    "language": "French",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "Carte Bleue,Visa,Mastercard",
+      "vccStatus": "Check-in +1"
+    }
   },
   {
     "propertyId": "207",
@@ -120,7 +156,13 @@ const hotels = [
     "propertyType": "Resort",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "English"
+    "language": "English",
+    "paymentDetails": {
+      "paymentModel": "Not on payments",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "Visa,Mastercard,RuPay",
+      "vccStatus": "On date of booking"
+    }
   },
   {
     "propertyId": "208",
@@ -134,7 +176,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "English"
+    "language": "English",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "CVC Required",
+      "creditCardsAccepted": "Visa,Mastercard,Amex,RuPay",
+      "vccStatus": "Check-in +1"
+    }
   },
   {
     "propertyId": "209",
@@ -148,7 +196,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Request to book",
     "system": "XML Hotel activated",
-    "language": "English"
+    "language": "English",
+    "paymentDetails": {
+      "paymentModel": "Not on payments",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "Visa,Mastercard",
+      "vccStatus": "On date of booking"
+    }
   },
   {
     "propertyId": "210",
@@ -162,7 +216,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "English"
+    "language": "English",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "CVC Required",
+      "creditCardsAccepted": "Visa,Mastercard,RuPay",
+      "vccStatus": "Check-in +1"
+    }
   },
   {
     "propertyId": "211",
@@ -176,7 +236,13 @@ const hotels = [
     "propertyType": "Hotel",
     "bookingModel": "Request to book",
     "system": "XML Hotel activated",
-    "language": "Italian"
+    "language": "Italian",
+    "paymentDetails": {
+      "paymentModel": "Not on payments",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "CartaSi,Visa,Mastercard",
+      "vccStatus": "On date of booking"
+    }
   },
   {
     "propertyId": "212",
@@ -190,7 +256,13 @@ const hotels = [
     "propertyType": "Boutique Hotel",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "French"
+    "language": "French",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "CVC Required",
+      "creditCardsAccepted": "Carte Bleue,Visa,Mastercard,Amex",
+      "vccStatus": "Check-in +1"
+    }
   },
   {
     "propertyId": "213",
@@ -204,7 +276,13 @@ const hotels = [
     "propertyType": "Resort",
     "bookingModel": "Request to book",
     "system": "XML Hotel activated",
-    "language": "French"
+    "language": "French",
+    "paymentDetails": {
+      "paymentModel": "Not on payments",
+      "cvc": "No CVC Code",
+      "creditCardsAccepted": "Carte Bleue,Visa,Mastercard",
+      "vccStatus": "On date of booking"
+    }
   },
   {
     "propertyId": "214",
@@ -218,7 +296,13 @@ const hotels = [
     "propertyType": "Boutique Hotel",
     "bookingModel": "Instant booking",
     "system": "XML Hotel activated",
-    "language": "Dutch"
+    "language": "Dutch",
+    "paymentDetails": {
+      "paymentModel": "Hybrid",
+      "cvc": "CVC Required",
+      "creditCardsAccepted": "Euro/Mastercard,Visa,Maestro",
+      "vccStatus": "Check-in +1"
+    }
   }
 ];
 
