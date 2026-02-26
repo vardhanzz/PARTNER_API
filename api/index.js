@@ -42,6 +42,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "Euro/Mastercard,Visa",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -62,6 +68,12 @@ const hotels = [
       "cvc": "CVC Required",
       "creditCardsAccepted": "Visa,Mastercard,Amex",
       "vccStatus": "On date of booking"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Completed",
+      "serr": "-"
     }
   },
   {
@@ -82,6 +94,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "No credit-cards accepted, only cash",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Not Applicable",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -102,6 +120,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "CartaSi,Maestro,Euro/Mastercard,Visa",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -122,6 +146,12 @@ const hotels = [
       "cvc": "CVC Required",
       "creditCardsAccepted": "Euro/Mastercard,Visa,Amex",
       "vccStatus": "On date of booking"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Completed",
+      "serr": "-"
     }
   },
   {
@@ -142,6 +172,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "Carte Bleue,Visa,Mastercard",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Not Applicable",
+      "dsa": "Completed",
+      "serr": "-"
     }
   },
   {
@@ -162,6 +198,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "Visa,Mastercard,RuPay",
       "vccStatus": "On date of booking"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -182,6 +224,12 @@ const hotels = [
       "cvc": "CVC Required",
       "creditCardsAccepted": "Visa,Mastercard,Amex,RuPay",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Completed",
+      "serr": "-"
     }
   },
   {
@@ -202,6 +250,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "Visa,Mastercard",
       "vccStatus": "On date of booking"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Not Applicable",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -222,6 +276,12 @@ const hotels = [
       "cvc": "CVC Required",
       "creditCardsAccepted": "Visa,Mastercard,RuPay",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -242,6 +302,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "CartaSi,Visa,Mastercard",
       "vccStatus": "On date of booking"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Completed",
+      "serr": "-"
     }
   },
   {
@@ -262,6 +328,12 @@ const hotels = [
       "cvc": "CVC Required",
       "creditCardsAccepted": "Carte Bleue,Visa,Mastercard,Amex",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Not Applicable",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -282,6 +354,12 @@ const hotels = [
       "cvc": "No CVC Code",
       "creditCardsAccepted": "Carte Bleue,Visa,Mastercard",
       "vccStatus": "On date of booking"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Not Applicable",
+      "serr": "-"
     }
   },
   {
@@ -302,6 +380,12 @@ const hotels = [
       "cvc": "CVC Required",
       "creditCardsAccepted": "Euro/Mastercard,Visa,Maestro",
       "vccStatus": "Check-in +1"
+    },
+    "kyp": {
+      "bhfs": "-",
+      "dac7": "Completed",
+      "dsa": "Completed",
+      "serr": "-"
     }
   }
 ];
