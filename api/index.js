@@ -1,6 +1,27 @@
 const http = require('http');
 const url = require('url');
 
+// Timezone mapping for countries
+const timezones = {
+  "India": "Asia/Kolkata",
+  "Italy": "Europe/Rome",
+  "France": "Europe/Paris",
+  "Netherlands": "Europe/Amsterdam"
+};
+
+// Function to get local time for a country
+function getLocalTime(country) {
+  const timezone = timezones[country] || "UTC";
+  return new Date().toLocaleString('en-GB', { 
+    timeZone: timezone,
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
 // Hotel data
 const hotels = [
   {
@@ -11,7 +32,11 @@ const hotels = [
     "status": "OPEN FOR BOOKING",
     "phone": "+919812345678",
     "address": "New Delhi",
-    "review": "Good"
+    "review": "Good",
+    "propertyType": "Hotel",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "English"
   },
   {
     "propertyId": "202",
@@ -21,7 +46,11 @@ const hotels = [
     "status": "OPEN FOR BOOKING",
     "phone": "+919911223344",
     "address": "Mumbai",
-    "review": "Good"
+    "review": "Good",
+    "propertyType": "Hotel",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "English"
   },
   {
     "propertyId": "203",
@@ -31,7 +60,11 @@ const hotels = [
     "status": "CLOSED FOR BOOKING",
     "phone": "+918045678901",
     "address": "Bangalore",
-    "review": "Bad"
+    "review": "Bad",
+    "propertyType": "Resort",
+    "bookingModel": "Request to book",
+    "system": "XML Hotel not activated",
+    "language": "English"
   },
   {
     "propertyId": "204",
@@ -40,8 +73,12 @@ const hotels = [
     "email": "roma@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+390612345678",
-    "address": "Rome",
-    "review": "Good"
+    "address": "Via Roma 25, Rome, Italy",
+    "review": "Good",
+    "propertyType": "Hotel",
+    "bookingModel": "Request to book",
+    "system": "XML Hotel activated",
+    "language": "Italian"
   },
   {
     "propertyId": "205",
@@ -50,8 +87,12 @@ const hotels = [
     "email": "amsterdam@hotel.com",
     "status": "OPEN FOR BOOKING",
     "phone": "+31201234567",
-    "address": "Amsterdam",
-    "review": "Good"
+    "address": "Damrak 45, Amsterdam, Netherlands",
+    "review": "Good",
+    "propertyType": "Hotel",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "Dutch"
   },
   {
     "propertyId": "206",
@@ -60,8 +101,12 @@ const hotels = [
     "email": "paris@hotel.com",
     "status": "CLOSED FOR BOOKING",
     "phone": "+33123456789",
-    "address": "Paris",
-    "review": "Bad"
+    "address": "Rue de Rivoli 18, Paris, France",
+    "review": "Bad",
+    "propertyType": "Hotel",
+    "bookingModel": "Request to book",
+    "system": "XML Hotel not activated",
+    "language": "French"
   },
   {
     "propertyId": "207",
@@ -71,7 +116,11 @@ const hotels = [
     "status": "OPEN FOR BOOKING",
     "phone": "+919876543210",
     "address": "Goa",
-    "review": "Good"
+    "review": "Good",
+    "propertyType": "Resort",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "English"
   },
   {
     "propertyId": "208",
@@ -81,7 +130,11 @@ const hotels = [
     "status": "OPEN FOR BOOKING",
     "phone": "+914412345678",
     "address": "Chennai",
-    "review": "Good"
+    "review": "Good",
+    "propertyType": "Hotel",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "English"
   },
   {
     "propertyId": "209",
@@ -91,7 +144,11 @@ const hotels = [
     "status": "OPEN FOR BOOKING",
     "phone": "+911123456789",
     "address": "New Delhi",
-    "review": "Bad"
+    "review": "Bad",
+    "propertyType": "Hotel",
+    "bookingModel": "Request to book",
+    "system": "XML Hotel activated",
+    "language": "English"
   },
   {
     "propertyId": "210",
@@ -101,9 +158,83 @@ const hotels = [
     "status": "OPEN FOR BOOKING",
     "phone": "+912212345678",
     "address": "Mumbai",
-    "review": "Good"
+    "review": "Good",
+    "propertyType": "Hotel",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "English"
+  },
+  {
+    "propertyId": "211",
+    "propertyName": "Hotel Venezia Grand",
+    "country": "Italy",
+    "email": "venezia@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+390412345678",
+    "address": "San Marco 1234, Venice, Italy",
+    "review": "Good",
+    "propertyType": "Hotel",
+    "bookingModel": "Request to book",
+    "system": "XML Hotel activated",
+    "language": "Italian"
+  },
+  {
+    "propertyId": "212",
+    "propertyName": "Le Marais Boutique Hotel",
+    "country": "France",
+    "email": "lemarais@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+33145678901",
+    "address": "Rue des Francs 12, Paris, France",
+    "review": "Good",
+    "propertyType": "Boutique Hotel",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "French"
+  },
+  {
+    "propertyId": "213",
+    "propertyName": "Nice Riviera Resort",
+    "country": "France",
+    "email": "niceriviera@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+33493123456",
+    "address": "Promenade des Anglais 50, Nice, France",
+    "review": "Good",
+    "propertyType": "Resort",
+    "bookingModel": "Request to book",
+    "system": "XML Hotel activated",
+    "language": "French"
+  },
+  {
+    "propertyId": "214",
+    "propertyName": "Canal View Amsterdam",
+    "country": "Netherlands",
+    "email": "canalview@hotel.com",
+    "status": "OPEN FOR BOOKING",
+    "phone": "+31206789012",
+    "address": "Herengracht 100, Amsterdam, Netherlands",
+    "review": "Good",
+    "propertyType": "Boutique Hotel",
+    "bookingModel": "Instant booking",
+    "system": "XML Hotel activated",
+    "language": "Dutch"
   }
 ];
+
+// Helper function to add localTime to hotel(s)
+function addLocalTime(data) {
+  if (Array.isArray(data)) {
+    return data.map(hotel => ({
+      ...hotel,
+      localTime: getLocalTime(hotel.country)
+    }));
+  }
+  return {
+    ...data,
+    localTime: getLocalTime(data.country)
+  };
+}
 
 // Helper function to send JSON response
 function sendJSON(res, statusCode, data) {
@@ -119,7 +250,7 @@ function handleRequest(req, res) {
 
   // GET /api/partner/hotels - Get all hotels
   if (pathname === '/api/partner/hotels' && req.method === 'GET') {
-    return sendJSON(res, 200, { hotels });
+    return sendJSON(res, 200, { hotels: addLocalTime(hotels) });
   }
 
   // GET /api/partner/hotels/search?name=taj - Search hotels by name
@@ -131,7 +262,7 @@ function handleRequest(req, res) {
     const results = hotels.filter(hotel =>
       hotel.propertyName.toLowerCase().includes(name.toLowerCase())
     );
-    return sendJSON(res, 200, { hotels: results });
+    return sendJSON(res, 200, { hotels: addLocalTime(results) });
   }
 
   // GET /api/partner/hotels/country/:country - Get hotels by country
@@ -141,7 +272,7 @@ function handleRequest(req, res) {
     const results = hotels.filter(hotel =>
       hotel.country.toLowerCase() === country.toLowerCase()
     );
-    return sendJSON(res, 200, { hotels: results });
+    return sendJSON(res, 200, { hotels: addLocalTime(results) });
   }
 
   // GET /api/partner/hotel?id=201 - Get hotel by ID
@@ -154,7 +285,7 @@ function handleRequest(req, res) {
     if (!hotel) {
       return sendJSON(res, 404, { error: "Hotel not found" });
     }
-    return sendJSON(res, 200, hotel);
+    return sendJSON(res, 200, addLocalTime(hotel));
   }
 
   // GET /api/partner/hotels/filter?name=taj&id=201 - Filter by name OR id (whichever provided)
@@ -178,7 +309,7 @@ function handleRequest(req, res) {
       );
     }
     
-    return sendJSON(res, 200, { hotels: results });
+    return sendJSON(res, 200, { hotels: addLocalTime(results) });
   }
 
   // GET /api/partner/hotels/query?q=taj OR ?q=201 - Unified search (auto-detect name or id)
@@ -208,7 +339,7 @@ function handleRequest(req, res) {
       );
     }
     
-    return sendJSON(res, 200, { hotels: results });
+    return sendJSON(res, 200, { hotels: addLocalTime(results) });
   }
 
   sendJSON(res, 404, { error: "Endpoint not found" });
