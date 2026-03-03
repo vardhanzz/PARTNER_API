@@ -1,0 +1,409 @@
+openapi: 3.0.0
+
+info:
+  title: Partner Hotel API
+  description: API to get hotel information including payment details and KYP data.
+  version: 1.0.0
+
+servers:
+  - url: https://partner-api-six.vercel.app
+    description: Production (Vercel)
+  - url: http://localhost:3000
+    description: Local Development
+
+paths:
+
+  /api/partner/hotels:
+    get:
+      summary: Get All Hotels
+      description: Returns a list of all hotels with full details including nested paymentDetails and kyp objects.
+      tags:
+        - Hotels
+      responses:
+        "200":
+          description: Successfully returned all hotels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotels:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Hotel"
+              example:
+                hotels:
+                  - propertyId: "201"
+                    propertyName: "Taj Delhi"
+                    country: "India"
+                    status: "OPEN FOR BOOKING"
+                    localTime: "03 Mar 2026, 17:00"
+                    paymentDetails:
+                      paymentModel: "Hybrid"
+                      cvc: "No CVC Code"
+                      creditCardsAccepted: "Euro/Mastercard,Visa"
+                      vccStatus: "Check-in +1"
+                    kyp:
+                      bhfs: "-"
+                      dac7: "Completed"
+                      dsa: "Not Applicable"
+                      serr: "-"
+
+  /api/partner/hotel:
+    get:
+      summary: Get Hotel by ID
+      description: Returns a single hotel by its property ID.
+      tags:
+        - Hotels
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The property ID of the hotel (e.g. 201, 204, 211)
+          schema:
+            type: string
+          example: "204"
+      responses:
+        "200":
+          description: Hotel found successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Hotel"
+              example:
+                propertyId: "204"
+                propertyName: "Hotel Roma Palace"
+                country: "Italy"
+                email: "roma@hotel.com"
+                status: "OPEN FOR BOOKING"
+                phone: "+390612345678"
+                address: "Via Roma 25, Rome, Italy"
+                review: "Good"
+                propertyType: "Hotel"
+                bookingModel: "Request to book"
+                system: "XML Hotel activated"
+                language: "Italian"
+                localTime: "03 Mar 2026, 13:30"
+                paymentDetails:
+                  paymentModel: "Hybrid"
+                  cvc: "No CVC Code"
+                  creditCardsAccepted: "CartaSi,Maestro,Euro/Mastercard,Visa"
+                  vccStatus: "Check-in +1"
+                kyp:
+                  bhfs: "-"
+                  dac7: "Completed"
+                  dsa: "Not Applicable"
+                  serr: "-"
+        "400":
+          description: Missing id parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "Please provide an id parameter"
+        "404":
+          description: Hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "Hotel not found"
+
+  /api/partner/hotels/search:
+    get:
+      summary: Search Hotels by Name
+      description: Search hotels by name. Case insensitive and supports partial matches.
+      tags:
+        - Hotels
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Hotel name or part of a name to search for (e.g. Taj, Hotel, Marais)
+          schema:
+            type: string
+          example: "Taj"
+      responses:
+        "200":
+          description: Search results returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotels:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Hotel"
+        "400":
+          description: Missing name parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "Please provide a name parameter"
+
+  /api/partner/hotels/country/{country}:
+    get:
+      summary: Get Hotels by Country
+      description: Returns all hotels from a specific country.
+      tags:
+        - Hotels
+      parameters:
+        - name: country
+          in: path
+          required: true
+          description: Country name (India, Italy, France, Netherlands)
+          schema:
+            type: string
+            enum:
+              - India
+              - Italy
+              - France
+              - Netherlands
+          example: "Italy"
+      responses:
+        "200":
+          description: Hotels from specified country
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotels:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Hotel"
+        "404":
+          description: No hotels found for that country
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "No hotels found for this country"
+
+  /api/partner/hotels/filter:
+    get:
+      summary: Filter Hotels
+      description: Filter hotels by name or ID using query parameters.
+      tags:
+        - Hotels
+      parameters:
+        - name: name
+          in: query
+          required: false
+          description: Filter by hotel name
+          schema:
+            type: string
+          example: "Taj"
+        - name: id
+          in: query
+          required: false
+          description: Filter by property ID
+          schema:
+            type: string
+          example: "201"
+      responses:
+        "200":
+          description: Filtered results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotels:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Hotel"
+        "400":
+          description: No filter parameters provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "Please provide at least one filter parameter"
+
+  /api/partner/hotels/query:
+    get:
+      summary: Unified Search (Name or ID)
+      description: Smart search - automatically detects if you passed a name or ID and returns matching hotels.
+      tags:
+        - Hotels
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search term - can be hotel name or ID (e.g. 'Taj' or '204')
+          schema:
+            type: string
+          example: "211"
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotels:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Hotel"
+        "400":
+          description: Missing q parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "Please provide a q parameter"
+
+components:
+  schemas:
+
+    Hotel:
+      type: object
+      description: A hotel object with all its details
+      properties:
+        propertyId:
+          type: string
+          description: Unique hotel ID
+          example: "204"
+        propertyName:
+          type: string
+          description: Full hotel name
+          example: "Hotel Roma Palace"
+        country:
+          type: string
+          description: Country where hotel is located
+          example: "Italy"
+        email:
+          type: string
+          description: Hotel contact email
+          example: "roma@hotel.com"
+        status:
+          type: string
+          description: Booking status
+          enum:
+            - OPEN FOR BOOKING
+            - CLOSED FOR BOOKING
+          example: "OPEN FOR BOOKING"
+        phone:
+          type: string
+          description: Hotel phone number
+          example: "+390612345678"
+        address:
+          type: string
+          description: Hotel address
+          example: "Via Roma 25, Rome, Italy"
+        review:
+          type: string
+          description: Hotel review rating
+          enum:
+            - Good
+            - Bad
+          example: "Good"
+        propertyType:
+          type: string
+          description: Type of property
+          enum:
+            - Hotel
+            - Resort
+            - Boutique Hotel
+          example: "Hotel"
+        bookingModel:
+          type: string
+          description: How the hotel accepts bookings
+          enum:
+            - Instant booking
+            - Request to book
+          example: "Request to book"
+        system:
+          type: string
+          description: Hotel system status
+          example: "XML Hotel activated"
+        language:
+          type: string
+          description: Primary language of the hotel
+          example: "Italian"
+        localTime:
+          type: string
+          description: Current local time at the hotel location (dynamic, calculated per request)
+          example: "03 Mar 2026, 13:30"
+        paymentDetails:
+          $ref: "#/components/schemas/PaymentDetails"
+        kyp:
+          $ref: "#/components/schemas/KYP"
+
+    PaymentDetails:
+      type: object
+      description: Nested object containing payment information for the hotel
+      properties:
+        paymentModel:
+          type: string
+          description: Payment model used
+          enum:
+            - Hybrid
+            - Not on payments
+          example: "Hybrid"
+        cvc:
+          type: string
+          description: CVC requirement
+          enum:
+            - No CVC Code
+            - CVC Required
+          example: "No CVC Code"
+        creditCardsAccepted:
+          type: string
+          description: List of accepted credit cards
+          example: "CartaSi,Maestro,Euro/Mastercard,Visa"
+        vccStatus:
+          type: string
+          description: Virtual credit card status
+          enum:
+            - "Check-in +1"
+            - On date of booking
+          example: "Check-in +1"
+
+    KYP:
+      type: object
+      description: Know Your Partner compliance data
+      properties:
+        bhfs:
+          type: string
+          description: BHFS compliance status
+          example: "-"
+        dac7:
+          type: string
+          description: DAC7 compliance status
+          enum:
+            - Completed
+            - Not Applicable
+            - "-"
+          example: "Completed"
+        dsa:
+          type: string
+          description: DSA compliance status
+          enum:
+            - Completed
+            - Not Applicable
+            - "-"
+          example: "Not Applicable"
+        serr:
+          type: string
+          description: SERR compliance status
+          example: "-"
+
+    Error:
+      type: object
+      description: Error response object
+      properties:
+        error:
+          type: string
+          description: Error message explaining what went wrong
+          example: "Hotel not found"

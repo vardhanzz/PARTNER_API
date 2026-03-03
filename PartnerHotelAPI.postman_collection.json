@@ -1,0 +1,1000 @@
+{
+	"info": {
+		"_postman_id": "a3f1c2d4-8e5b-4a9f-b3d2-1c7e9f0a2b4d",
+		"name": "Partner Hotel API - Testing Collection",
+		"description": "Collection for testing the Partner Hotel API. Created for QA purposes.\nCovers happy paths, edge cases and error scenarios.\n\nBase URL is stored in the environment variables so you can easily switch between local and production.\n\nNote: Remember to select the right environment before running!",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Happy Paths",
+			"description": "These are the normal use cases - the ones that should always work",
+			"item": [
+				{
+					"name": "Get All Hotels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// basic check - is the response OK?",
+									"pm.test(\"Status code should be 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response should have hotels array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Hotels array should not be empty\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"Each hotel should have a propertyId\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.propertyId).to.exist;",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Each hotel should have localTime field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.localTime).to.exist;",
+									"    });",
+									"});",
+									"",
+									"// save total count for later use maybe",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"total_hotels\", jsonData.hotels.length);",
+									"console.log(\"Total hotels found: \" + jsonData.hotels.length);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels"]
+						},
+						"description": "Gets all hotels from the API. Should return all 14 hotels."
+					}
+				},
+				{
+					"name": "Search Hotels by Name - Taj",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Should return hotels with Taj in the name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.be.above(0);",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.propertyName.toLowerCase()).to.include('taj');",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Response time should be less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/search?name=Taj",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "search"],
+							"query": [
+								{
+									"key": "name",
+									"value": "Taj"
+								}
+							]
+						},
+						"description": "Search hotels by name. Should return all Taj hotels."
+					}
+				},
+				{
+					"name": "Get Hotel by ID - 204 (Italy)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Returns correct hotel\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.propertyId).to.eql('204');",
+									"    pm.expect(jsonData.propertyName).to.eql('Hotel Roma Palace');",
+									"    pm.expect(jsonData.country).to.eql('Italy');",
+									"});",
+									"",
+									"pm.test(\"Local time should be in Italy timezone\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.localTime).to.exist;",
+									"    pm.expect(jsonData.localTime).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Payment details should exist and have all fields\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.paymentDetails).to.exist;",
+									"    pm.expect(jsonData.paymentDetails.paymentModel).to.exist;",
+									"    pm.expect(jsonData.paymentDetails.cvc).to.exist;",
+									"    pm.expect(jsonData.paymentDetails.creditCardsAccepted).to.exist;",
+									"    pm.expect(jsonData.paymentDetails.vccStatus).to.exist;",
+									"});",
+									"",
+									"pm.test(\"KYP object should exist with all 4 fields\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.kyp).to.exist;",
+									"    pm.expect(jsonData.kyp.bhfs).to.exist;",
+									"    pm.expect(jsonData.kyp.dac7).to.exist;",
+									"    pm.expect(jsonData.kyp.dsa).to.exist;",
+									"    pm.expect(jsonData.kyp.serr).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotel?id=204",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotel"],
+							"query": [
+								{
+									"key": "id",
+									"value": "204"
+								}
+							]
+						},
+						"description": "Get a single hotel by its property ID. Testing with Hotel Roma Palace (Italy)"
+					}
+				},
+				{
+					"name": "Get Hotels by Country - Italy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"All results should be from Italy\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.be.above(0);",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.country).to.eql('Italy');",
+									"    });",
+									"});",
+									"",
+									"// Italy has 2 hotels (204, 211)",
+									"pm.test(\"Should return 2 hotels for Italy\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/country/Italy",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "country", "Italy"]
+						},
+						"description": "Filter hotels by country. Italy should return 2 hotels."
+					}
+				},
+				{
+					"name": "Unified Search by Name - marais",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Should find Le Marais hotel\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.eql(1);",
+									"    pm.expect(jsonData.hotels[0].propertyName).to.include('Marais');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/query?q=marais",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "query"],
+							"query": [
+								{
+									"key": "q",
+									"value": "marais"
+								}
+							]
+						},
+						"description": "Unified search endpoint - pass anything and it figures out if its name or ID"
+					}
+				},
+				{
+					"name": "Unified Search by ID - 211",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Should return Hotel Venezia Grand\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.eql(1);",
+									"    pm.expect(jsonData.hotels[0].propertyId).to.eql('211');",
+									"    pm.expect(jsonData.hotels[0].propertyName).to.eql('Hotel Venezia Grand');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/query?q=211",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "query"],
+							"query": [
+								{
+									"key": "q",
+									"value": "211"
+								}
+							]
+						},
+						"description": "Unified search with numeric input - should auto detect as ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "Edge Cases",
+			"description": "Weird but valid inputs - testing boundaries of the API",
+			"item": [
+				{
+					"name": "Search - Lowercase name (taj)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// API should be case insensitive",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Lowercase search should work same as uppercase\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"All results contain taj (case insensitive)\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.propertyName.toLowerCase()).to.include('taj');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/search?name=taj",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "search"],
+							"query": [
+								{
+									"key": "name",
+									"value": "taj"
+								}
+							]
+						},
+						"description": "Testing lowercase - API should handle case insensitive search"
+					}
+				},
+				{
+					"name": "Search - ALL CAPS (TAJ)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"UPPERCASE search should also return results\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.be.above(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/search?name=TAJ",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "search"],
+							"query": [
+								{
+									"key": "name",
+									"value": "TAJ"
+								}
+							]
+						},
+						"description": "Testing all caps search"
+					}
+				},
+				{
+					"name": "Search - Partial name (Hot)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Partial name should return matching hotels\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    // should match Hotel Roma Palace, Hotel Venezia Grand etc",
+									"    pm.expect(jsonData.hotels.length).to.be.above(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/search?name=Hot",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "search"],
+							"query": [
+								{
+									"key": "name",
+									"value": "Hot"
+								}
+							]
+						},
+						"description": "Partial name match - should still return hotels containing Hot"
+					}
+				},
+				{
+					"name": "Search - Name with no results (zzzz)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Should return empty array not error\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels).to.be.an('array');",
+									"    pm.expect(jsonData.hotels.length).to.eql(0);",
+									"});",
+									"",
+									"// important - empty results should not crash the API",
+									"pm.test(\"Response should still be valid JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/search?name=zzzz",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "search"],
+							"query": [
+								{
+									"key": "name",
+									"value": "zzzz"
+								}
+							]
+						},
+						"description": "Edge case - name that doesn't match anything. Should return empty array not error."
+					}
+				},
+				{
+					"name": "Country Search - lowercase (france)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// France has 3 hotels: 206, 212, 213",
+									"pm.test(\"Should return 3 hotels for France\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/country/france",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "country", "france"]
+						},
+						"description": "Country search with lowercase - should be case insensitive"
+					}
+				},
+				{
+					"name": "Verify localTime is Dynamic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"localTime field must exist\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.localTime).to.exist;",
+									"});",
+									"",
+									"pm.test(\"localTime should be a non empty string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.localTime).to.be.a('string');",
+									"    pm.expect(jsonData.localTime.length).to.be.above(0);",
+									"});",
+									"",
+									"// log the time to console so we can verify its correct timezone",
+									"var jsonData = pm.response.json();",
+									"console.log(\"Local time for India hotel: \" + jsonData.localTime);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotel?id=201",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotel"],
+							"query": [
+								{
+									"key": "id",
+									"value": "201"
+								}
+							]
+						},
+						"description": "Check that localTime is returned dynamically. Run this twice and the time should change."
+					}
+				},
+				{
+					"name": "Filter - Both name and id together",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response should be hotels array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/filter?name=Taj&id=201",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "filter"],
+							"query": [
+								{
+									"key": "name",
+									"value": "Taj"
+								},
+								{
+									"key": "id",
+									"value": "201"
+								}
+							]
+						},
+						"description": "Filter endpoint with both name and id parameters at once"
+					}
+				},
+				{
+					"name": "Netherlands Hotels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Netherlands has 205, 214",
+									"pm.test(\"Should return 2 Netherlands hotels\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.hotels.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"All should be Netherlands country\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.country).to.eql('Netherlands');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/country/Netherlands",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "country", "Netherlands"]
+						},
+						"description": "Get all Netherlands hotels"
+					}
+				}
+			]
+		},
+		{
+			"name": "Error Scenarios",
+			"description": "These should fail - testing that API handles bad input correctly",
+			"item": [
+				{
+					"name": "Search - Missing name param (should give 400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// this should return 400 because name param is missing",
+									"pm.test(\"Status code should be 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Error message should exist\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.exist;",
+									"});",
+									"",
+									"pm.test(\"Error message should mention name parameter\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error.toLowerCase()).to.include('name');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/search",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "search"]
+						},
+						"description": "Calling search endpoint without providing name parameter - should return 400"
+					}
+				},
+				{
+					"name": "Get Hotel - Missing id param (should give 400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Should return an error object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotel"]
+						},
+						"description": "Calling hotel endpoint without id - should return 400 bad request"
+					}
+				},
+				{
+					"name": "Get Hotel - Invalid ID (999) - should give 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Should return hotel not found error\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.exist;",
+									"    pm.expect(jsonData.error.toLowerCase()).to.include('not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotel?id=999",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotel"],
+							"query": [
+								{
+									"key": "id",
+									"value": "999"
+								}
+							]
+						},
+						"description": "Hotel ID that doesnt exist - should return 404"
+					}
+				},
+				{
+					"name": "Invalid Endpoint (should give 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Should return error in JSON format\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/doesnotexist",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "doesnotexist"]
+						},
+						"description": "Hitting an endpoint that doesnt exist"
+					}
+				},
+				{
+					"name": "Filter - No params at all (should give 400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Error message should be returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/filter",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "filter"]
+						},
+						"description": "Filter endpoint with no query params - should return 400"
+					}
+				},
+				{
+					"name": "Unified Search - Missing q param (should give 400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status should be 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Error should mention q parameter\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels/query",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels", "query"]
+						},
+						"description": "Query endpoint without q param"
+					}
+				}
+			]
+		},
+		{
+			"name": "Nested Data Tests",
+			"description": "Making sure the nested objects (paymentDetails and kyp) are correct",
+			"item": [
+				{
+					"name": "Verify paymentDetails Structure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"paymentDetails should be an object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.paymentDetails).to.be.an('object');",
+									"});",
+									"",
+									"pm.test(\"paymentDetails should have all 4 fields\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var pd = jsonData.paymentDetails;",
+									"    pm.expect(pd.paymentModel).to.be.a('string');",
+									"    pm.expect(pd.cvc).to.be.a('string');",
+									"    pm.expect(pd.creditCardsAccepted).to.be.a('string');",
+									"    pm.expect(pd.vccStatus).to.be.a('string');",
+									"});",
+									"",
+									"// log the values so we can see them in console",
+									"var jsonData = pm.response.json();",
+									"console.log(\"Payment Model: \" + jsonData.paymentDetails.paymentModel);",
+									"console.log(\"VCC Status: \" + jsonData.paymentDetails.vccStatus);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotel?id=205",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotel"],
+							"query": [
+								{
+									"key": "id",
+									"value": "205"
+								}
+							]
+						},
+						"description": "Testing Grand Amsterdam Stay (205) to verify paymentDetails nested object is correct"
+					}
+				},
+				{
+					"name": "Verify KYP Structure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"kyp should be a nested object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.kyp).to.be.an('object');",
+									"    pm.expect(typeof jsonData.kyp).to.eql('object');",
+									"});",
+									"",
+									"pm.test(\"kyp should have bhfs, dac7, dsa, serr\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.kyp.bhfs).to.exist;",
+									"    pm.expect(jsonData.kyp.dac7).to.exist;",
+									"    pm.expect(jsonData.kyp.dsa).to.exist;",
+									"    pm.expect(jsonData.kyp.serr).to.exist;",
+									"});",
+									"",
+									"pm.test(\"bhfs and serr should be - (empty)\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.kyp.bhfs).to.eql('-');",
+									"    pm.expect(jsonData.kyp.serr).to.eql('-');",
+									"});",
+									"",
+									"console.log(\"KYP DAC7: \" + pm.response.json().kyp.dac7);",
+									"console.log(\"KYP DSA: \" + pm.response.json().kyp.dsa);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotel?id=201",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotel"],
+							"query": [
+								{
+									"key": "id",
+									"value": "201"
+								}
+							]
+						},
+						"description": "Testing Taj Delhi (201) to check KYP nested object is correct"
+					}
+				},
+				{
+					"name": "Verify All Hotels Have Both Nested Objects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// every single hotel should have both nested objects",
+									"pm.test(\"Every hotel should have paymentDetails\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.paymentDetails).to.exist;",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Every hotel should have kyp\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.kyp).to.exist;",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Every hotel should have propertyType and bookingModel\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.hotels.forEach(function(hotel) {",
+									"        pm.expect(hotel.propertyType).to.exist;",
+									"        pm.expect(hotel.bookingModel).to.exist;",
+									"    });",
+									"});",
+									"",
+									"var total = pm.response.json().hotels.length;",
+									"console.log(\"Checked nested objects for \" + total + \" hotels\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/partner/hotels",
+							"host": ["{{base_url}}"],
+							"path": ["api", "partner", "hotels"]
+						},
+						"description": "Runs through all hotels and checks every single one has the nested objects"
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://partner-api-six.vercel.app",
+			"type": "string"
+		}
+	]
+}
