@@ -533,7 +533,7 @@ function handleRequest(req, res) {
 
     setTimeout(() => {
       sendJSON(res, 200, data);
-    }, 3000);
+    }, 6000);
 
     return;
   }
