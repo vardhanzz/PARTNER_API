@@ -525,9 +525,9 @@ function handleRequest(req, res) {
     return sendJSON(res, 200, { hotels: addLocalTime(results) });
   }
 
-  // GET /api/partner/contacthistory - Get contact history (8 second delay to demo UI blocking)
+  // GET /api/partner/contacthistory - Get contact history (3 second delay to demo UI blocking)
   if (pathname === '/api/partner/contacthistory' && req.method === 'GET') {
-    const delay = parseInt(query.delay) || 8;
+    const delay = parseInt(query.delay) || 3;
 
     const contactHistory = {
       history: [
