@@ -48,6 +48,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Rajesh Sharma",
+      "type": "Primary contact for Partner Support",
+      "position": "General Manager",
+      "preferredLanguage": "English",
+      "email": "rajesh.sharma@tajdelhi.com",
+      "phone": "+919812345001",
+      "mobile": "+919812345002"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210045",
+      "accountManagerPhone": "72210045",
+      "localOfficeName": "New Delhi",
+      "status": "Open",
+      "cspSupport": "72216200",
+      "csEscalation": "72216200"
     }
   },
   {
@@ -74,6 +91,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Completed",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Priya Patel",
+      "type": "Primary contact for Partner Support",
+      "position": "Front Office Manager",
+      "preferredLanguage": "English",
+      "email": "priya.patel@tajmumbai.com",
+      "phone": "+919911223001",
+      "mobile": "+919911223002"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210046",
+      "accountManagerPhone": "72210046",
+      "localOfficeName": "Mumbai",
+      "status": "Open",
+      "cspSupport": "72216201",
+      "csEscalation": "72216201"
     }
   },
   {
@@ -100,6 +134,23 @@ const hotels = [
       "dac7": "Not Applicable",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Anand Krishnan",
+      "type": "Secondary contact for Reservations",
+      "position": "Revenue Manager",
+      "preferredLanguage": "English",
+      "email": "anand.k@oberoibangalore.com",
+      "phone": "+918045678001",
+      "mobile": ""
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210047",
+      "accountManagerPhone": "72210047",
+      "localOfficeName": "Bangalore",
+      "status": "Closed",
+      "cspSupport": "72216202",
+      "csEscalation": "72216202"
     }
   },
   {
@@ -126,6 +177,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Marco Rossi",
+      "type": "Primary contact for Partner Support",
+      "position": "Hotel Director",
+      "preferredLanguage": "Italian",
+      "email": "m.rossi@romapalace.it",
+      "phone": "+390612345001",
+      "mobile": "+393331234567"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210060",
+      "accountManagerPhone": "72210060",
+      "localOfficeName": "Rome",
+      "status": "Open",
+      "cspSupport": "72216264",
+      "csEscalation": "72216264"
     }
   },
   {
@@ -152,6 +220,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Completed",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Jan de Vries",
+      "type": "Primary contact for Partner Support",
+      "position": "Operations Manager",
+      "preferredLanguage": "Dutch",
+      "email": "j.devries@grandamsterdam.nl",
+      "phone": "+31201234001",
+      "mobile": "+31612345678"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210070",
+      "accountManagerPhone": "72210070",
+      "localOfficeName": "Amsterdam",
+      "status": "Open",
+      "cspSupport": "72216270",
+      "csEscalation": "72216270"
     }
   },
   {
@@ -178,6 +263,23 @@ const hotels = [
       "dac7": "Not Applicable",
       "dsa": "Completed",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Sophie Dubois",
+      "type": "Primary contact for Partner Support",
+      "position": "*unknown*",
+      "preferredLanguage": "French",
+      "email": "s.dubois@hiltonparis.fr",
+      "phone": "+33123456001",
+      "mobile": ""
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210080",
+      "accountManagerPhone": "72210080",
+      "localOfficeName": "Paris",
+      "status": "Closed",
+      "cspSupport": "72216280",
+      "csEscalation": "72216280"
     }
   },
   {
@@ -204,6 +306,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Vikram Menon",
+      "type": "Primary contact for Partner Support",
+      "position": "Assistant Manager",
+      "preferredLanguage": "English",
+      "email": "vikram.menon@tajgoa.com",
+      "phone": "+919876543001",
+      "mobile": "+919876543002"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210048",
+      "accountManagerPhone": "72210048",
+      "localOfficeName": "Goa",
+      "status": "Open",
+      "cspSupport": "72216203",
+      "csEscalation": "72216203"
     }
   },
   {
@@ -230,6 +349,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Completed",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Lakshmi Narayanan",
+      "type": "Primary contact for Partner Support",
+      "position": "Deputy General Manager",
+      "preferredLanguage": "English",
+      "email": "lakshmi.n@itcchennai.com",
+      "phone": "+914412345001",
+      "mobile": "+919445123456"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210049",
+      "accountManagerPhone": "72210049",
+      "localOfficeName": "Chennai",
+      "status": "Open",
+      "cspSupport": "72216204",
+      "csEscalation": "72216204"
     }
   },
   {
@@ -256,6 +392,23 @@ const hotels = [
       "dac7": "Not Applicable",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Deepak Verma",
+      "type": "Secondary contact for Reservations",
+      "position": "Reservations Manager",
+      "preferredLanguage": "English",
+      "email": "deepak.verma@itcmaurya.com",
+      "phone": "+911123456001",
+      "mobile": ""
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210045",
+      "accountManagerPhone": "72210045",
+      "localOfficeName": "New Delhi",
+      "status": "Open",
+      "cspSupport": "72216200",
+      "csEscalation": "72216200"
     }
   },
   {
@@ -282,6 +435,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Suresh Iyer",
+      "type": "Primary contact for Partner Support",
+      "position": "Front Office Manager",
+      "preferredLanguage": "English",
+      "email": "suresh.iyer@itcmaratha.com",
+      "phone": "+912212345001",
+      "mobile": "+919820123456"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210046",
+      "accountManagerPhone": "72210046",
+      "localOfficeName": "Mumbai",
+      "status": "Open",
+      "cspSupport": "72216201",
+      "csEscalation": "72216201"
     }
   },
   {
@@ -308,6 +478,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Completed",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Giovanni Bianchi",
+      "type": "Primary contact for Partner Support",
+      "position": "Owner",
+      "preferredLanguage": "Italian",
+      "email": "g.bianchi@veneziagrand.it",
+      "phone": "+390412345001",
+      "mobile": "+393387654321"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210061",
+      "accountManagerPhone": "72210061",
+      "localOfficeName": "Venice",
+      "status": "Open",
+      "cspSupport": "72216265",
+      "csEscalation": "72216265"
     }
   },
   {
@@ -334,6 +521,23 @@ const hotels = [
       "dac7": "Not Applicable",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Pierre Laurent",
+      "type": "Primary contact for Partner Support",
+      "position": "Hotel Manager",
+      "preferredLanguage": "French",
+      "email": "p.laurent@lemarais.fr",
+      "phone": "+33145678001",
+      "mobile": "+33612345678"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210081",
+      "accountManagerPhone": "72210081",
+      "localOfficeName": "Paris",
+      "status": "Open",
+      "cspSupport": "72216280",
+      "csEscalation": "72216280"
     }
   },
   {
@@ -360,6 +564,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Not Applicable",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Claire Moreau",
+      "type": "Secondary contact for Reservations",
+      "position": "Revenue Director",
+      "preferredLanguage": "French",
+      "email": "c.moreau@niceriviera.fr",
+      "phone": "+33493123001",
+      "mobile": "+33698765432"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210082",
+      "accountManagerPhone": "72210082",
+      "localOfficeName": "Nice",
+      "status": "Open",
+      "cspSupport": "72216281",
+      "csEscalation": "72216281"
     }
   },
   {
@@ -386,6 +607,23 @@ const hotels = [
       "dac7": "Completed",
       "dsa": "Completed",
       "serr": "-"
+    },
+    "contacts": {
+      "name": "Emma van den Berg",
+      "type": "Primary contact for Partner Support",
+      "position": "General Manager",
+      "preferredLanguage": "Dutch",
+      "email": "e.vandenberg@canalview.nl",
+      "phone": "+31206789001",
+      "mobile": "+31623456789"
+    },
+    "partnerServices": {
+      "accountManagerInternal": "72210071",
+      "accountManagerPhone": "72210071",
+      "localOfficeName": "Amsterdam",
+      "status": "Open",
+      "cspSupport": "72216271",
+      "csEscalation": "72216271"
     }
   }
 ];
