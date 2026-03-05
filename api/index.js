@@ -525,6 +525,49 @@ function handleRequest(req, res) {
     return sendJSON(res, 200, { hotels: addLocalTime(results) });
   }
 
+  // GET /api/partner/contacthistory - Get contact history (8 second delay to demo UI blocking)
+  if (pathname === '/api/partner/contacthistory' && req.method === 'GET') {
+    const delay = parseInt(query.delay) || 8;
+
+    const contactHistory = {
+      history: [
+        {
+          month: "March 2026",
+          contacts: [
+            { date: "03 Mar 2026, 21:32", type: "Complaint", subject: "Complaint message from partner", message: "Booking refund not processed after 8 months of follow-up. Request immediate resolution.", sender: "Christian Montua Albers", email: "c.montua@gmx.de" },
+            { date: "02 Mar 2026, 15:06", type: "Email", subject: "To property inbox", message: "Guten Tag, vielen Dank dass Sie sich an uns gewandt haben. Sollten Ihnen Unannehmlichkeiten entstanden sein, bitten wir dies zu entschuldigen.", sender: "Susanne Kontopides Thomsen", email: "s.thomsen@booking.com" },
+            { date: "02 Mar 2026, 01:35", type: "Security", subject: "Security risk report", message: "Suspicion: account_hacking. Victim: Partner. Property id: 12345. Social media related case: No.", sender: "Hyeok Byun", email: "h.byun@booking.com" }
+          ]
+        },
+        {
+          month: "February 2026",
+          contacts: [
+            { date: "28 Feb 2026, 10:15", type: "Note", subject: "Internal note", message: "Partner contacted regarding rate parity issue. Escalated to account manager.", sender: "Agent Support", email: "support@booking.com" },
+            { date: "20 Feb 2026, 14:30", type: "Email", subject: "Reservation cancellation request", message: "Guest requested cancellation for booking ref 40-6372382533. Awaiting property confirmation.", sender: "Guest Services", email: "guestservices@booking.com" }
+          ]
+        },
+        {
+          month: "January 2026",
+          contacts: [
+            { date: "15 Jan 2026, 09:00", type: "Note", subject: "Property onboarding update", message: "XML activation completed. Property is now live on the platform.", sender: "Onboarding Team", email: "onboarding@booking.com" }
+          ]
+        },
+        {
+          month: "December 2025",
+          contacts: [
+            { date: "10 Dec 2025, 16:45", type: "Complaint", subject: "Overbooking complaint", message: "Partner reported overbooking incident during peak season. Compensation discussion pending.", sender: "Partner Relations", email: "partnerrelations@booking.com" }
+          ]
+        }
+      ]
+    };
+
+    setTimeout(() => {
+      sendJSON(res, 200, contactHistory);
+    }, delay * 1000);
+
+    return;
+  }
+
   sendJSON(res, 404, { error: "Endpoint not found" });
 }
 

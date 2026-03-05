@@ -1,0 +1,12 @@
+# Use this workspace to collaborate
+workspace:
+  id: ""
+
+localResources:
+  collections:
+    - ../PartnerHotelAPI.postman_collection.json
+  environments:
+    - ../PartnerHotelAPI_Local.postman_environment.json
+    - ../PartnerHotelAPI_Production.postman_environment.json
+  specs:
+    - ../swagger.yaml
