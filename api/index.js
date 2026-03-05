@@ -522,7 +522,11 @@ function handleRequest(req, res) {
       );
     }
     
-    return sendJSON(res, 200, { hotels: addLocalTime(results) });
+    // TEMPORARY - 4 second delay for blocking demo (REMOVE AFTER TESTING)
+    setTimeout(() => {
+      sendJSON(res, 200, { hotels: addLocalTime(results) });
+    }, 4000);
+    return;
   }
 
   // GET /api/partner/dummy - Simple response with 3 second delay (TEMPORARY - remove after testing)
