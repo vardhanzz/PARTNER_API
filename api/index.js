@@ -525,6 +525,19 @@ function handleRequest(req, res) {
     return sendJSON(res, 200, { hotels: addLocalTime(results) });
   }
 
+  // GET /api/partner/dummy - Simple response with 3 second delay (TEMPORARY - remove after testing)
+  if (pathname === '/api/partner/dummy' && req.method === 'GET') {
+    const data = {
+      body: "We received this complaint. Wrong furniture was delivered to the guest room. The guest has requested an immediate replacement and a partial refund for the inconvenience caused."
+    };
+
+    setTimeout(() => {
+      sendJSON(res, 200, data);
+    }, 3000);
+
+    return;
+  }
+
   // GET /api/partner/contacthistory - Get contact history (3 second delay to demo UI blocking)
   if (pathname === '/api/partner/contacthistory' && req.method === 'GET') {
     const delay = parseInt(query.delay) || 3;
